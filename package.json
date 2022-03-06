@@ -1,0 +1,16 @@
+{
+  "name": "TEST-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d exam2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "http://vnPetkov.github.io/CookHelper",
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./view/css/styles.css">
+    <link rel="stylesheet" href="./view/css/reset.css">
+
+    <title>Cook Helper</title>
+
+</head>
+
+<body>
+    <script id="recipeBox-template" type="text/x-handlebars-template">
+            {{#each recipes}}
+                <div class="recipeBox">
+                    <a href="{{link}}"><img id='boxImg'src="{{imageUrl}}"></a>
+                    <h1 class="boxTitle">{{name}}</h1>
+                    <p class="boxIngred">{{ingredients}}</p>
+                    {{#if (isFav this) }}
+                        <button class="boxButton addFavBtn">Add to favorites</button>
+                    {{else}}
+                        <button class="boxButton removeFavBtn">Remove from favorites</button>
+                    {{/if}}
+                    <button class="boxButton cookBtn">Cook</button>
+                </div>
+            {{/each}}
+        </script>
+
+    <div id="wrapper">
+        <header>
+            <div class="containerTop">
+                <div id="logoDiv">
+                    <img id="logo" src="./view/img/logo.png" alt="default user image">
+                </div>
+                <nav id="nav">
+                    <ul id="navList">
+                        <li class="navButtons"><a href="#recipePage">ALL <br>RECIPES</a></li>
+                        <li class="navButtons"><a href="#favPage">FAVORITE <br>RECIPES</a></li>
+                        <li class="navButtons"><a href="#createPage">CREATE <br>RECIPE</a></li>
+                        <li class="navButtons"><a href="#profPage">MY <br>PROFILE</a></li>
+                    </ul>
+                    <h1 id="navText">Welcome to the Cook Helper website</h1>
+                </nav>
+                <div id='profDiv'>
+                    <div id='profCont'>
+                        <img id="headerProfImg" src="./view/img/guest.png" alt="default user image">
+                        <a id="logOut" href="#loginPage">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <form id="logForm" class="formDiv" name="logForm">
+            <input id="logUsername" type="text" placeholder="username"><br>
+            <input id="logPassword" type="password" placeholder="password"><br>
+            <p class="logError"></p>
+            <input id="logBtn" type="button" value="LOGIN"><br>
+            <a id="goToRegister" href="#regPage">Don't have an account yet? Create one.</a>
+        </form>
+
+        <form id="regForm" class="formDiv" name="regForm">
+            <input id="regUsername" type="text" placeholder="username"><br>
+            <input id="regPassword1" type="password" placeholder="password"><br>
+            <input id="regPassword2" type="password" placeholder="repeat the password"><br><br>
+
+            <input id="regName" type="text" placeholder="your name"><br>
+            <input id="regAge" type="number" placeholder="your age"><br>
+            <input id="regAddress" type="address" placeholder="your adress"><br>
+
+            <p class="logError"></p>
+            <input id="regBtn" type="button" value="REGISTER"><br>
+            <a id="goToLogin" href="#loginPage">Already have an account? Login here.</a>
+        </form>
+
+        <div class="contDiv" id="recipePage">
+            <div id="inputs">
+                <select name="ingredients" id="select"></select>
+                <input type="text" id="textInput" placeholder="Search by recipe name...">
+            </div>
+            <div id="allrecipesCont"></div>
+        </div>
+
+        <div class="contDiv" id="favPage"></div>
+
+        <div class="contDiv" id="createPage">
+            <form id="form">
+                <div class="group">
+                    <label for="Name">Recipe name: </label><br>
+                    <input class="inpt" type="text" name="Name" id="nm" placeholder="Bahur">
+                </div>
+
+                <div class="group">
+                    <label for="ingredients">Ingredients</label><br>
+                    <textarea class="inpt" id="ing" name="w3review" rows="6" cols="25"></textarea>
+                </div>
+
+                <div class="group">
+                    <label for="link">Link to a detailed recipe</label><br>
+                    <input class="inpt" type="url" name="link" id="lnk" placeholder="Paste a detailed recipe link here">
+                </div>
+
+                <div class="group">
+                    <label for="link">Recipe image</label><br>
+                    <input class="inpt" type="url" name="link" id="imgIn"
+                        placeholder="Paste the recipe image link here"><br><br>
+                </div>
+            </form>
+
+            <button id="createNew" form="form" disabled="true">Create recipe</button>
+            <button type="reset" form="form">Clear</button>
+        </div>
+
+        <div class="contDiv" id="profPage">
+            <h1 id="profTitle1">Edit your profile</h1>
+            <form id="profForm">
+                <div class="profGroup">
+                    <label for="userName">Name</label><br>
+                    <input type="text" name="userName" id="userName">
+                </div>
+                <div class="profGroup">
+                    <label for="userAge">Age</label><br>
+                    <input type="text" name="userAge" id="userAge">
+                </div>
+                <div class="profGroup">
+                    <label for="userAdress">Adress</label><br>
+                    <input type="text" name="userAdress" id="userAdress">
+                </div>
+                <div class="profGroup">
+                    <label for="userPic">Profile picture</label><br>
+                    <input type="url" name="userPic" id="userPic" placeholder="Paste the profile image link here">
+                </div>
+            </form>
+            <button id="editProf" form="profForm">Edit profile</button>
+            <button type="reset" form="profForm">Clear</button>
+
+            <h1 id="profTitle2">Your cooking progress</h1>
+            <div id="tableTitles">
+                <div>
+                    <h1 class="cookedTitle">Cooked recipe</h1>
+                </div>
+                <div>
+                    <h1 class="cookedTitle">Times cooked</h1>
+                </div>
+            </div>
+            <div id="table">
+                <div id="nameCol" class="columns"></div>
+                <div id="counterCol" class="columns"></div>
+            </div>
+        </div>
+
+        <div class="contDiv" id="errorPage">There is no such page!</div>
+        <footer>
+            <h1>Website created by: Vasil Petkov.<br><br> Alrights reserved &#169; 2021</h1>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <script src="./model/recipes-random//source.js"></script>
+    <script src="./controller/utilities.js"></script>
+
+    <script src="./model/CreateUser.js"></script>
+    <script src="./model/UserService.js"></script>
+    <script src="./model/RecipeService.js"></script>
+
+    <script src="./controller/router.js"></script>
+    <script src="./controller/LogFormController.js"></script>
+    <script src="./controller/controller.js"></script>
+</body>
+
+</html>
